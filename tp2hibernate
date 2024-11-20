@@ -1,0 +1,177 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : ven. 31 mai 2024 à 14:29
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `tp2hibernate`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `candidature`
+--
+
+CREATE TABLE `candidature` (
+  `id` int(11) NOT NULL,
+  `date_diplome` varchar(255) NOT NULL,
+  `dernier_poste` varchar(255) NOT NULL,
+  `nbre_annee` int(11) NOT NULL,
+  `offre_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `candidature`
+--
+
+INSERT INTO `candidature` (`id`, `date_diplome`, `dernier_poste`, `nbre_annee`, `offre_id`, `user_id`) VALUES
+(1, '2024-05-04', 'Ingénieur junior', 2, 2, 2),
+(2, '2024-05-11', 'Stagaire', 5, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `entreprise`
+--
+
+CREATE TABLE `entreprise` (
+  `id` int(11) NOT NULL,
+  `titre` varchar(255) NOT NULL,
+  `domaine` varchar(255) NOT NULL,
+  `ville` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `entreprise`
+--
+
+INSERT INTO `entreprise` (`id`, `titre`, `domaine`, `ville`) VALUES
+(1, 'E-robot Software', 'Télécom/Embarqué', 'Tunis'),
+(2, 'Vidal Associates', 'Développement', 'Tunis'),
+(3, 'Leymax Technologies', 'Développement', 'Tunis');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `offre`
+--
+
+CREATE TABLE `offre` (
+  `id` int(11) NOT NULL,
+  `poste` varchar(255) NOT NULL,
+  `entreprise_id` int(11) NOT NULL,
+  `date_embauche` varchar(255) NOT NULL,
+  `salaire` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `offre`
+--
+
+INSERT INTO `offre` (`id`, `poste`, `entreprise_id`, `date_embauche`, `salaire`) VALUES
+(1, 'Développeur .Net Core', 1, '12/12/2023', '2100'),
+(2, 'Senior Développeur Full-Stack', 2, '12/12/2023', '3200');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `id` int(11) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `prenom`, `nom`, `login`, `password`, `role`) VALUES
+(1, 'Ali', 'Ben Salah', 'ali', '$2a$12$rmfIwrzU/oIo97BsgsPdB.A73Yolc055HOahIBELfyjB9o3iQxRqm', 'user'),
+(2, 'Aya', 'Ben Salah', 'aya', '$2a$12$rmfIwrzU/oIo97BsgsPdB.A73Yolc055HOahIBELfyjB9o3iQxRqm', 'user'),
+(3, 'Tarek', 'Ben Salah', 'tarek', '$2a$12$rmfIwrzU/oIo97BsgsPdB.A73Yolc055HOahIBELfyjB9o3iQxRqm', 'admin');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `candidature`
+--
+ALTER TABLE `candidature`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKeagpy1jxet9ysf656rxg4coiy` (`offre_id`),
+  ADD KEY `FKrqohyd9iv5j6hph74xv0p4pl1` (`user_id`);
+
+--
+-- Index pour la table `entreprise`
+--
+ALTER TABLE `entreprise`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `offre`
+--
+ALTER TABLE `offre`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK7g7thatv4pr2x05krs9te0jm` (`entreprise_id`);
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `candidature`
+--
+ALTER TABLE `candidature`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `entreprise`
+--
+ALTER TABLE `entreprise`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `offre`
+--
+ALTER TABLE `offre`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
